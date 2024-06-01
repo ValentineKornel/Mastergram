@@ -1,0 +1,100 @@
+
+
+header{
+    width: auto;
+    height: 100px;
+    background-color: white;
+}
+
+body{
+    background-color: #F8F7FF;
+    margin: 0px;
+}
+
+#iconDiv{
+    display: inline-block;
+    margin: 6px 0px 0px 37px;
+    width: 200px;
+    height: 87px;
+}
+
+#iconLink:hover,
+#iconLink:focus,
+#iconLink:active,
+#iconLink:visited{
+    text-decoration: none;
+    color: black;
+}
+
+#icon{
+    display: inline-block;
+    margin: 31px 0px 0px 5px;
+    font-family: 'Parchment';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 66px;
+    line-height: 24px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#searchDiv{
+    position: absolute;
+    left: 400px;
+    margin-top: 25px;
+    display: inline-block;
+    width: 640px;
+    height: 50px;
+}
+
+#searchInput{
+    width: 640px;
+    height: 50px;
+    background: #F8F7FF;
+    border-radius: 6px;
+    border: 0px;
+    
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: -0.408px;
+    padding-left: 25px;
+}
+
+#searchInput::placeholder{
+    position: absolute;
+    left: 25px;
+    width: 559px;
+    height: 22px;
+
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: -0.408px;
+
+    color: rgba(60, 60, 67, 0.6);
+}
+
+#cleanSearchButton{
+    position: absolute;
+    margin-left: 620px;
+    top: 13px;
+}
+
+#avatarDiv{
+    display: inline-block;
+    width: 65px;
+    height: 65px;
+    position: absolute;
+    margin-top: 17px;
+    left: 94%;
+}
+
+#avatar{
+    width: 65px;
+    height: 65px;
+    border-radius: 50px;
+}
