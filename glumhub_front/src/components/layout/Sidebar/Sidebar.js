@@ -1,9 +1,17 @@
+import { useNavigate } from 'react-router-dom'
 import styles from './Sidebar.module.css'
 
 const Sidebar = () => {
+
+    const navigate = useNavigate();
+
+    const onClickHome = () => {
+        navigate('/');
+    }
+
     return(
         <nav>
-        <div className={styles.navButton}>
+        <div onClick={onClickHome} className={styles.navButton}>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.33398 21.2659C8.33398 19.003 8.33398 17.8715 8.79142 16.877C9.24886 15.8824 10.1079 15.146 11.8261 13.6733L13.4927 12.2448C16.5983 9.58289 18.151 8.25195 20.0007 8.25195C21.8503 8.25195 23.403 9.58289 26.5086 12.2448L28.1752 13.6733C29.8934 15.146 30.7524 15.8824 31.2099 16.877C31.6673 17.8715 31.6673 19.003 31.6673 21.2659V28.3332C31.6673 31.4759 31.6673 33.0473 30.691 34.0236C29.7147 34.9999 28.1433 34.9999 25.0007 34.9999H15.0007C11.858 34.9999 10.2866 34.9999 9.3103 34.0236C8.33398 33.0473 8.33398 31.4759 8.33398 28.3332V21.2659Z" stroke="black"/>
                 <path d="M24.1673 35V26C24.1673 25.4477 23.7196 25 23.1673 25H16.834C16.2817 25 15.834 25.4477 15.834 26V35" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>

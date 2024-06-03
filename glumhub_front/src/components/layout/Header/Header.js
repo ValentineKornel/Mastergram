@@ -1,8 +1,23 @@
 
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
+import ProfileNav from './profileNav';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { UserContext } from '../../../layouts/MainLaout';
 
-const Header = () => {
+const Header = (user) => {
+    const [navProfileVisible, setNavProfileVisibility] = useState(false);
+    //const {user} = useContext(UserContext);
+
+    const openNavProfile = () => {
+        if(navProfileVisible === false){
+            setNavProfileVisibility(true)
+        }else{
+            setNavProfileVisibility(false);
+        }
+        console.log(user.user.base64Image.toString().length);
+    }
+
     return(
         <header>
         <Link id={styles.iconLink} to='/'>
@@ -19,10 +34,19 @@ const Header = () => {
         </div>
 
         <div id={styles.avatarDiv}>
-            <Link to='/login'>
-                <img id={styles.avatar} src={`${process.env.PUBLIC_URL}/defaultUser.png`} alt='user'/>
-            </Link>
+
+            {user.user.base64Image && user.user.base64Image.length > 30 ? (
+                <img onClick={openNavProfile} id={styles.avatar} src={user.user.base64Image} alt='user'/>
+            ) : (
+                <img onClick={openNavProfile} id={styles.avatar} src={`${process.env.PUBLIC_URL}/defaultUser.png`} alt="User Avatar" />
+            )}
         </div>
+        {navProfileVisible && (
+            <div id={styles.profileNavDiv}>
+            <ProfileNav user={user.user}></ProfileNav>
+        </div>
+        )}
+
     </header>
     )
 }

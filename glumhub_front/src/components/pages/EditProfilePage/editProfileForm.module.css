@@ -1,4 +1,4 @@
-#loginForm{
+#editProfileForm{
     font-family: Georgia;
     padding-top: 2%;
     padding-bottom: 1%;
@@ -8,12 +8,11 @@
     align-items: center;
     justify-content: center;
 
-    width: 30%;
-    border: 1px solid black;
+    margin-top: 5%;
+    width: 60%;
     height: auto;
 
     background: #FFFFFF;
-    box-shadow: 0px 21.0037px 31.5056px rgba(147, 153, 176, 0.15);
     border-radius: 12.6022px;
 }
 
@@ -37,9 +36,9 @@ form input{
 }
 
 
-#loginButton{
+#registerButton{
     font-family: Georgia;
-    margin-top: 10px;
+    margin-top: 20px;
     border: none;
     width: 90%;
     height: 40px;
@@ -51,34 +50,47 @@ form input{
     border-radius: 6px;
 }
 
-#loginGoogleButton{
-    font-family: Georgia;
-    margin-top: 10px;
-    border: none;
-    width: 90%;
-    height: 40px;
-    left: 559.49px;
-    top: 422.72px;
+#loginLink{
+    margin-left: -75%;
+    margin-bottom: 20px;
+}
 
+#messageLabel{
+    margin-top: 10px;
+}
+
+#changeAvatarDiv{
+    width: 90%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+#avatarDiv{
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+}
+
+.avatar{
+    width: 150px;
+    height: 150px;
+    border-radius: 90px;
+}
+
+
+#changeAvatarButton{
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: Georgia;
+    border: none;
+    width: 200px;
+    height: 40px;
+    margin-left: 50px;;
 
-    color: #D4D4D4;
-    background-color: white;
-    border: 1px solid #D4D4D4;
+    border: 1px solid #9381FF;
+    background: white;
+    
     border-radius: 6px;
-}
-
-#orLabel{
-    margin-top: 10px;
-}
-
-#recoveryLink{
-    margin-top: 10px;
-}
-
-#signUpLink{
-    margin-top: 10px;
-    color: #9381FF;
 }

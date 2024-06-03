@@ -1,62 +1,78 @@
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import styles from './RegisterForm.module.css'
 import { useState } from "react";
+import authApi from "../../../services/authApi";
 
 
 const RegisterForm = () => {
 
-
+    const navigate = useNavigate();
+    const [username, setUsername] = useState();
+    const [firstName, setFirstName] = useState();
+    const [secondName, setSecondName] = useState();
+    const [password, setPassword] = useState();
+    const [email, setEmail] = useState();
+    const [tel, setTel] = useState();
     const [message, setMessage] = useState();
 
-    const register = async (event) =>{
+    const onChangeFirstNname = (event) => {
+        setFirstName(event.target.value)
+    }
+    const onChangeSecondNname = (event) => {
+        setSecondName(event.target.value)
+    }
+    const onChangeUsername = (event) => {
+        setUsername(event.target.value)
+    }
+    const onChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+    const onChangeEmail = (event) => {
+        setEmail(event.target.value);
+    };
+    const onChangeTel = (event) => {
+        setTel(event.target.value);
+    };
 
+    const register = async (event) =>{
         event.preventDefault();
 
-        const registerRequest = {
-            username: "eva",
-            password: "12345",
-            email: "val@gmail.com",
-            firstName: "eva",
-            secondName: "eva",
-            tel: "+375445514885"
+        const registerData = {
+            username: username,
+            password: password,
+            email: email,
+            firstName: firstName,
+            secondName: secondName,
+            tel: tel
         };
 
         try{
-            const response = await fetch('http://localhost:8080/auth/sign-up',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(registerRequest)
-            });
+            const response = await authApi.signUp(registerData);
+            const result = await response.json();
 
             if(response.ok){
-                const result = await response.json();
-                alert(result.token);
                 localStorage.setItem('token', result.token);
-
+                navigate('/');
             } else {
-                console.error("Unexpected error:", response.statusText);
-                setMessage(response.statusText);
+                setMessage(result.message);
             }
         }catch (error) {
             console.error("Error during registration:", error);
         }
     }
 
-
     return( 
-        <form>
+        <form id={styles.registerForm}>
             <label id={styles.titleLabel}>GlumHub</label>
-            <Link id={styles.loginLink} to='/login'>Log in</Link>
+            <Link id={styles.loginLink} to='/auth/login'>Log in</Link>
 
-            <input type="text" placeholder="username"/>
-            <input type="text" placeholder="first name"/>
-            <input type="text" placeholder="second name"/>
-            <input type="password" placeholder="password"/>
-            <input type='email' placeholder="email"/>
-            <input type='tel' placeholder="phone number"/>
-            <button onClick={register} id={styles.registerButton}>REGISTER</button>
+            <input onChange={onChangeUsername} type="text" placeholder="username"/>
+            <input onChange={onChangeFirstNname} type="text" placeholder="first name"/>
+            <input onChange={onChangeSecondNname} type="text" placeholder="second name"/>
+            <input onChange={onChangePassword} type="text" placeholder="password"/>
+            <input onChange={onChangeEmail} type='email' placeholder="email"/>
+            <input onChange={onChangeTel} type='tel' placeholder="phone number"/>
+            <button type="submit" onClick={register} id={styles.registerButton}>REGISTER</button>
             {
                 message !== null ? <label id={styles.messageLabel}>{message}</label> : null
             }

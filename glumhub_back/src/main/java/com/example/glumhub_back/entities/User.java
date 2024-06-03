@@ -25,9 +25,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private ROLES role;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] profileImage;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Credential credential;
 
     public Long getId() {

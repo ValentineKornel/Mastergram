@@ -21,11 +21,14 @@ public class UserService {
         if(userRepository.existsUserByUsername(user.getUsername())){
             throw new RuntimeException("This username is already taken");
         }
-
         return save(user);
     }
 
 
+    public User getById(Long id){
+        return userRepository.findUserById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 
     public User getByUsername(String username){
         return userRepository.findUserByUsername(username)

@@ -6,6 +6,8 @@ import com.example.glumhub_back.dto.LogInRequest;
 import com.example.glumhub_back.dto.SignUpRequest;
 import com.example.glumhub_back.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +21,15 @@ public class AuthController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/sign-up")
-    public JwtAuthenticationResponse signUp(@RequestBody SignUpRequest request) {
-        return authenticationService.signUp(request);
+    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody SignUpRequest request) {
+        JwtAuthenticationResponse response = authenticationService.signUp(request);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     @PostMapping("/login")
-    public JwtAuthenticationResponse signIn(@RequestBody LogInRequest request) {
-        return authenticationService.logIn(request);
+    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody LogInRequest request) {
+        JwtAuthenticationResponse response = authenticationService.logIn(request);
+
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 }

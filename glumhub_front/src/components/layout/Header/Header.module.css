@@ -98,3 +98,14 @@ body{
     height: 65px;
     border-radius: 50px;
 }
+
+
+#profileNavDiv{
+    position: absolute;
+    left: 78%;
+    top: 14%;
+    z-index: 10;
+    border: 1px solid black;
+    width: 20%;
+    height: auto;
+}
