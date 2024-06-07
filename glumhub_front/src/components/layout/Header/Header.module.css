@@ -84,6 +84,8 @@ body{
     top: 13px;
 }
 
+
+
 #avatarDiv{
     display: inline-block;
     width: 65px;
@@ -97,6 +99,7 @@ body{
     width: 65px;
     height: 65px;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 
@@ -108,4 +111,65 @@ body{
     border: 1px solid black;
     width: 20%;
     height: auto;
+}
+
+#toggleDiv{
+    position: absolute;
+    width: auto;
+    height: 65px;
+    left: 82%;
+    top: 4%;
+}
+
+#mLabel{
+    width: 150px;
+    font-family: Georgia;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.switchToggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.switchToggle input[type="checkbox"] + label {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0;
+    cursor: pointer;
+    background-color: #F1F1F1;
+}
+
+.switchToggle input[type="checkbox"] + label::before {
+    position: absolute;
+    content: '';
+    font-size: 13px;
+    text-align: center;
+    line-height: 25px;
+    top: 5px;
+    left: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: white;
+    transition: .3s ease-in-out;
+}
+
+.switchToggle input[type="checkbox"]:checked + label::before {
+    left: 74%;
+    content: '';
+    color: #fff;
+    background-color: white;
+}
+
+.switchToggle input[type="checkbox"]:checked + label{
+    background-color: #9381FF;
+    color: white;
 }

@@ -39,18 +39,46 @@ const EditProfileForm = () => {
         reader.readAsDataURL(file);
         
     }
+    const onChangeCity = (event) => {
+        setUser({...user, city:event.target.value});
+    }
+    const onChangeDescription = (event) => {
+        setUser({...user, masterInfo: {...user.masterInfo, description: event.target.value}});
+    }
+    const onChangeBusinessAddress = (event) => {
+        setUser({...user, masterInfo: {...user.masterInfo, businessAddress: event.target.value}});
+    }
 
     const updateUserInfo = async (event) => {
         event.preventDefault();
         try {
-            const response = await userApi.updateUserInfo(user);
+            let updateData = {
+            id: user.id,
+            username: user.username,
+            password: user.password,
+            base64Image: user.base64Image,
+            email: user.email,
+            firstName: user.firstName,
+            secondName: user.secondName,
+            tel: user.tel,
+            city: user.city
+            }
+
+            if(user.role === 'ROLE_MASTER'){
+                updateData = {...updateData,
+                    description: user.masterInfo.description,
+                    businessAddress: user.masterInfo.businessAddress
+                }
+            }
+
+            const response = user.role === 'ROLE_CLIENT' ? await userApi.updateClientInfo(updateData) : await userApi.updateMasterInfo(updateData);
+
             if (response.ok) {
                 console.log('updated successfully');
-                navigate('/');
-            } else {
+                user.role === "ROLE_CLIENT" ? navigate('/client/home') : navigate('/master/home');
+            }else {
                 const result = response.text();
                 setMessage(result);
-                console.log(result);
             }
         } catch (error) {
             console.error("Error during rquest:", error);
@@ -73,11 +101,25 @@ const EditProfileForm = () => {
             <label id={styles.changeAvatarButton} htmlFor="fileInput">Load image</label>
             <input onChange={onChangeImage} style={{visibility:'hidden'}} id="fileInput" type="file" accept="image/*"/>
             </div>
-
+            {user.role === 'ROLE_MASTER' && (
+            <div id={styles.masterDiv}>
+                <label>Desctiption</label>
+                <textarea onChange={onChangeDescription} value={user.masterInfo.description} placeholder="description"></textarea>
+                <label>Business address</label>
+                <input onChange={onChangeBusinessAddress} value={user.masterInfo.businessAddress} type="text" placeholder="business address"/>
+            </div>
+            )}
+            <label>Username</label>
             <input onChange={onChangeUsername} value={user.username} type="text" placeholder="username"/>
+            <label>First name</label>
             <input onChange={onChangeFirstNname} value={user.firstName} type="text" placeholder="first name"/>
+            <label>Second name</label>
             <input onChange={onChangeSecondNname}value={user.secondName} type="text" placeholder="second name"/>
+            <label>City</label>
+            <input onChange={onChangeCity}value={user.city} type="text" placeholder="city"/>
+            <label>Email</label>
             <input onChange={onChangeEmail} value={user.email} type='email' placeholder="email"/>
+            <label>Phone number</label>
             <input onChange={onChangeTel} value={user.tel} type='tel' placeholder="phone number"/>
             <button onClick={updateUserInfo} type="submit" id={styles.registerButton}>Save changes</button>
             {

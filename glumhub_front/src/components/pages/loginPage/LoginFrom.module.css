@@ -82,3 +82,7 @@ form input{
     margin-top: 10px;
     color: #9381FF;
 }
+
+#messageLabel{
+    color: red;
+}

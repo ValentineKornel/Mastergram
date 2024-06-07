@@ -14,6 +14,7 @@ const RegisterForm = () => {
     const [email, setEmail] = useState();
     const [tel, setTel] = useState();
     const [message, setMessage] = useState();
+    const [city, setCity] = useState();
 
     const onChangeFirstNname = (event) => {
         setFirstName(event.target.value)
@@ -33,6 +34,9 @@ const RegisterForm = () => {
     const onChangeTel = (event) => {
         setTel(event.target.value);
     };
+    const onChangeCity = (event) => {
+        setCity(event.target.value);
+    }
 
     const register = async (event) =>{
         event.preventDefault();
@@ -43,7 +47,8 @@ const RegisterForm = () => {
             email: email,
             firstName: firstName,
             secondName: secondName,
-            tel: tel
+            tel: tel,
+            city: city
         };
 
         try{
@@ -69,6 +74,7 @@ const RegisterForm = () => {
             <input onChange={onChangeUsername} type="text" placeholder="username"/>
             <input onChange={onChangeFirstNname} type="text" placeholder="first name"/>
             <input onChange={onChangeSecondNname} type="text" placeholder="second name"/>
+            <input onChange={onChangeCity} type="text" placeholder="city"/>
             <input onChange={onChangePassword} type="text" placeholder="password"/>
             <input onChange={onChangeEmail} type='email' placeholder="email"/>
             <input onChange={onChangeTel} type='tel' placeholder="phone number"/>

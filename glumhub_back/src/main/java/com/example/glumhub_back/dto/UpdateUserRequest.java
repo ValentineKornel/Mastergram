@@ -4,6 +4,10 @@ public class UpdateUserRequest {
 
     private Long id;
 
+    private String description;
+
+    private String businessAddress;
+
     private String username;
 
     private String base64Image;
@@ -11,6 +15,8 @@ public class UpdateUserRequest {
     private String firstName;
 
     private String secondName;
+
+    private String city;
 
     private String email;
 
@@ -22,6 +28,22 @@ public class UpdateUserRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBusinessAddress() {
+        return businessAddress;
+    }
+
+    public void setBusinessAddress(String businessAddress) {
+        this.businessAddress = businessAddress;
     }
 
     public String getUsername() {
@@ -54,6 +76,14 @@ public class UpdateUserRequest {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getEmail() {

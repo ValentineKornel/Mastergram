@@ -5,7 +5,11 @@ const ProfileNav = (user) => {
 
     const navigete = useNavigate();
 
-    const editProfileNavigate = () => {
+    const myProfileNavigate = () => {
+        navigete('/client/myProfile');
+    }
+
+    const settingsNavigate = () => {
         navigete('/editProfile');
     }
 
@@ -21,9 +25,9 @@ const ProfileNav = (user) => {
             ) : (
                 <img id={styles.avatar} src={`${process.env.PUBLIC_URL}/defaultUser.png`} alt='user'/>
             )}
-            <div id={styles.name}>Fname Sname</div>
-            <div onClick={editProfileNavigate} className={styles.buttonClass}>Edit profile</div>
-            <div className={styles.buttonClass}>Settings</div>
+            <div id={styles.name}>{user.user.firstName} {user.user.secondName}</div>
+            <div onClick={myProfileNavigate} className={styles.buttonClass}>My profile</div>
+            <div onClick={settingsNavigate} className={styles.buttonClass}>Settings</div>
             <div onClick={logOutNavigate} className={styles.buttonClass}>Log Out</div>
         </div>
     )

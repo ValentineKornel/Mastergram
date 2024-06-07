@@ -43,6 +43,7 @@ public class AuthenticationService {
         newUser.setUsername(request.getUsername());
         newUser.setFirstName(request.getFirstName());
         newUser.setSecondName(request.getSecondName());
+        newUser.setCity(request.getCity());
         newUser.setEmail(request.getEmail());
         newUser.setTel(request.getTel());
         newUser.setRole(ROLES.ROLE_CLIENT);

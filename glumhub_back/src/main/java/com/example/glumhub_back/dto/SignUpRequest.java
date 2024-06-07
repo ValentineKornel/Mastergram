@@ -8,6 +8,8 @@ public class SignUpRequest {
 
     private String secondName;
 
+    private String city;
+
     private String password;
 
     private String email;
@@ -36,6 +38,14 @@ public class SignUpRequest {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getPassword() {

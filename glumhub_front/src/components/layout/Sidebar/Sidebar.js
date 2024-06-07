@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './Sidebar.module.css'
+import { useContext } from 'react';
+import { UserContext } from '../../../layouts/MainLaout';
 
 const Sidebar = () => {
 
     const navigate = useNavigate();
+    const user = useContext(UserContext);
 
     const onClickHome = () => {
-        navigate('/');
+        user.role === 'ROLE_CLIENT' ? navigate('/client/home') : navigate('/master/home');
     }
+
 
     return(
         <nav>

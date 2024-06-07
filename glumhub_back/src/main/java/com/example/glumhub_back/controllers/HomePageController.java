@@ -2,7 +2,6 @@ package com.example.glumhub_back.controllers;
 
 import com.example.glumhub_back.entities.User;
 import com.example.glumhub_back.services.UserService;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
-public class HomePageClientController {
+public class HomePageController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping("/currentUserInfo")
+    @GetMapping("client/currentUserInfo")
     public ResponseEntity<User> getUserInfo(){
+
+        User response = userService.getCurrentUser();
+        response.setCredential(null);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("master/currentUserInfo")
+    public ResponseEntity<User> getMasterInfo(){
 
         User response = userService.getCurrentUser();
         response.setCredential(null);

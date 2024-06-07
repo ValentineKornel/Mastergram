@@ -1,8 +1,10 @@
 package com.example.glumhub_back.entities;
 
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -18,6 +20,8 @@ public class User {
 
     private String SecondName;
 
+    private String city;
+
     private String email;
 
     private String tel;
@@ -29,8 +33,11 @@ public class User {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] profileImage;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Credential credential;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private MasterInfo masterInfo;
 
     public Long getId() {
         return id;
@@ -62,6 +69,14 @@ public class User {
 
     public void setSecondName(String secondName) {
         SecondName = secondName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getEmail() {
@@ -102,5 +117,31 @@ public class User {
 
     public void setCredential(Credential credential) {
         this.credential = credential;
+    }
+
+    public MasterInfo getMasterInfo() {
+        return masterInfo;
+    }
+
+    public void setMasterInfo(MasterInfo masterInfo) {
+        this.masterInfo = masterInfo;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", FirstName='" + FirstName + '\'' +
+                ", SecondName='" + SecondName + '\'' +
+                ", city='" + city + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
+                ", role=" + role +
+                ", profileImage=" + Arrays.toString(profileImage) +
+                ", credential=" + credential +
+                ", masterInfo=" + masterInfo +
+                '}';
     }
 }

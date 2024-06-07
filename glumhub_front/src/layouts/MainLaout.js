@@ -18,6 +18,10 @@ const MainLayout = () => {
         firstName: null,
         secondName: null,
         tel: null,
+        masterInfo: {
+            description: null,
+            businessAddress: null,
+        }
         }
     );
 
@@ -30,15 +34,36 @@ const MainLayout = () => {
                     console.log(result);
 
                     const profileImageBase64 = result.profileImage;
-                    setUser({
+                    setUser({...user,
                         id: result.id,
                         username: result.username,
                         base64Image: `data:image/jpeg;base64,${profileImageBase64}`,
                         email: result.email,
+                        role: result.role,
                         firstName: result.firstName,
                         secondName: result.secondName,
                         tel: result.tel,
+                        city: result.city,
+                        masterInfo: result.role === 'ROLE_MASTER' && result.masterInfo ? {
+                            description: result.masterInfo.description,
+                            businessAddress: result.masterInfo.businessAddress
+                        } : null
                     });
+                    console.log(result);
+
+                    switch(result.role){
+                        case 'ROLE_CLIENT':{
+                            navigate('/client/home');
+                            break;
+                        }
+                        case 'ROLE_MASTER':{
+                            navigate('/master/home');
+                            break;
+                        }
+                        default: {
+                            navigate('/error');
+                        }
+                    }
                 } else {
                     navigate('/auth/login');
                 }
