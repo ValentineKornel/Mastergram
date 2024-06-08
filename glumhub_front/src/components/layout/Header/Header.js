@@ -7,8 +7,9 @@ import { UserContext } from '../../../layouts/MainLaout';
 
 const Header = (user) => {
     const navigate = useNavigate();
-    const location = useLocation();
     const [navProfileVisible, setNavProfileVisibility] = useState(false);
+
+    const {isMaster, setIsMaster} = useContext(UserContext);
 
     const openNavProfile = () => {
         if(navProfileVisible === false){
@@ -19,29 +20,20 @@ const Header = (user) => {
     }
 
     const enableMaster = () => {
-        if(location.pathname !== '/client/home'){
-            navigate('/client/home');
+        if(isMaster){
+            setIsMaster(false);
         }else{
-            navigate('/master/home');
+            setIsMaster(true);
         }
     }
 
     return(
         <header>
-        {user.role === "ROLE_CLIENT" ? (
-            <Link id={styles.iconLink} to='/client/home'>
+        <Link id={styles.iconLink} to='/home'>
             <div id={styles.iconDiv}>
                 <p id={styles.icon}>GlumHub</p>
             </div>
-            </Link>
-        ) : (
-            <Link id={styles.iconLink} to='/master/home'>
-            <div id={styles.iconDiv}>
-                <p id={styles.icon}>GlumHub</p>
-            </div>
-            </Link>
-        )}
-
+        </Link>
         <div id={styles.searchDiv}>
             <input id={styles.searchInput} type="text" placeholder="Search"/>
         <svg id={styles.cleanSearchButton} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,8 +44,8 @@ const Header = (user) => {
         {user.user.role === "ROLE_MASTER" && (
             <div id={styles.toggleDiv}>
             <div  className={styles.switchToggle}>
-                    <input onClick={enableMaster} type="checkbox" checked={location.pathname !== '/client/home'} id='toggle'/>
-                    <label htmlFor='toggle' id={styles.mLabel} for="bluetooth"><span>master</span></label>
+                    <input onClick={enableMaster} type="checkbox" checked={isMaster} id='toggle'/>
+                    <label id={styles.mLabel} htmlFor="toggle"><span>master</span></label>
                 </div>
             </div>
         )}

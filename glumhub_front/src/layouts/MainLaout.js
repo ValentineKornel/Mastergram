@@ -1,7 +1,7 @@
 import { Children, createContext, useEffect, useState } from "react";
 import Header from "../components/layout/Header/Header";
 import Sidebar from "../components/layout/Sidebar/Sidebar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styles from './MainLaout.module.css'
 import userApi from "../services/userApi";
 
@@ -9,13 +9,16 @@ import userApi from "../services/userApi";
 const UserContext = createContext();
 const MainLayout = () => {
 
+    const location = useLocation();
     const navigate = useNavigate();
+    const [isMaster, setIsMaster] = useState(false);
     const [user, setUser] = useState({
         id: null,
         username: null,
         base64Image: null,
         email: null,
         firstName: null,
+        role: null,
         secondName: null,
         tel: null,
         masterInfo: {
@@ -49,20 +52,13 @@ const MainLayout = () => {
                             businessAddress: result.masterInfo.businessAddress
                         } : null
                     });
+                    if(result.role === 'ROLE_MASTER'){
+                        setIsMaster(true);
+                    }
                     console.log(result);
-
-                    switch(result.role){
-                        case 'ROLE_CLIENT':{
-                            navigate('/client/home');
-                            break;
-                        }
-                        case 'ROLE_MASTER':{
-                            navigate('/master/home');
-                            break;
-                        }
-                        default: {
-                            navigate('/error');
-                        }
+                    
+                    if(location.pathname === '/'){
+                        navigate('/home');
                     }
                 } else {
                     navigate('/auth/login');
@@ -77,7 +73,7 @@ const MainLayout = () => {
 
     return(
 
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser, isMaster, setIsMaster}}>
             <div>
             <Header user={user}></Header>
             <Sidebar></Sidebar>

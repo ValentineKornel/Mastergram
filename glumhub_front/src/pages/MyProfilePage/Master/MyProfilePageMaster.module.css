@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 30px;
 }
 
 #profileInfo{
@@ -71,10 +72,10 @@
     width: 90%;
 }
 
-#histryButton{
+#navButton{
     font-family: Georgia, 'Times New Roman', Times, serif;
     height: 35px;
-    border-top: 2px solid #B8B8FF;
+    border-top: none;
     border-left: none;
     border-right: none;
     border-bottom: none;
@@ -82,8 +83,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-#histryButton:hover{
+#navButton:hover{
     background-color: rgb(250, 250, 250);
+}
+
+
+#postsContainer{
+    width: 90%;
+    height: auto;
+    margin-top: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#postWrapper{
+    width: 16vw;
+    height: 16vw;
+    margin-left: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+#postImage{
+    width: 16vw;
+    height: 16vw;
 }

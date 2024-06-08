@@ -6,12 +6,10 @@ import { UserContext } from '../../../layouts/MainLaout';
 const Sidebar = () => {
 
     const navigate = useNavigate();
-    const user = useContext(UserContext);
 
     const onClickHome = () => {
-        user.role === 'ROLE_CLIENT' ? navigate('/client/home') : navigate('/master/home');
+        navigate('/home');
     }
-
 
     return(
         <nav>

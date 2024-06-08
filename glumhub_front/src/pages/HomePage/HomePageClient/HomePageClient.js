@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import styles from './HomePageClient.module.css'
-import userApi from '../../services/userApi';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../layouts/MainLaout';
+import { UserContext } from '../../../layouts/MainLaout';
 
 
 const HomePageClient = () => {

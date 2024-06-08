@@ -11,7 +11,7 @@ const EditProfileForm = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState();
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser, isMaster} = useContext(UserContext);
 
     const onChangeFirstNname = (event) => {
         setUser({...user, firstName:event.target.value});
@@ -75,7 +75,7 @@ const EditProfileForm = () => {
 
             if (response.ok) {
                 console.log('updated successfully');
-                user.role === "ROLE_CLIENT" ? navigate('/client/home') : navigate('/master/home');
+                navigate('/home');
             }else {
                 const result = response.text();
                 setMessage(result);
@@ -101,7 +101,7 @@ const EditProfileForm = () => {
             <label id={styles.changeAvatarButton} htmlFor="fileInput">Load image</label>
             <input onChange={onChangeImage} style={{visibility:'hidden'}} id="fileInput" type="file" accept="image/*"/>
             </div>
-            {user.role === 'ROLE_MASTER' && (
+            {isMaster && (
             <div id={styles.masterDiv}>
                 <label>Desctiption</label>
                 <textarea onChange={onChangeDescription} value={user.masterInfo.description} placeholder="description"></textarea>

@@ -1,9 +1,8 @@
 package com.example.glumhub_back.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class MasterInfo {
@@ -15,6 +14,9 @@ public class MasterInfo {
     private String description;
 
     private String businessAddress;
+
+    @OneToMany(mappedBy = "masterInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private List<Post> posts;
 
     public Long getId() {
         return id;
@@ -40,6 +42,17 @@ public class MasterInfo {
         this.businessAddress = businessAddress;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public void addPost(Post newPost){
+        posts.add(newPost);
+    }
 
     @Override
     public String toString() {

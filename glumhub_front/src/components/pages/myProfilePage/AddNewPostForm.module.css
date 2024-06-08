@@ -1,0 +1,79 @@
+
+
+#addNewPostForm{
+    margin-top: 10px;
+    background-color: white;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+
+}
+
+#addNewPostForm label{
+    font-size: 14px;
+    font-family: Georgia;
+    margin-top: 10px;
+    color: rgb(35, 35, 35);
+    font-weight: bold;
+}
+
+#postImage{
+    margin-top: 5px;
+    width: 23vw;
+    height: 23vw;
+}
+
+#changeImageButton{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia;
+    border: none;
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+
+    border: 1px solid #9381FF;
+    background-color: white;
+    
+    border-radius: 6px;
+}
+
+#changeImageButton:hover{
+    background-color: rgb(250, 250, 250);
+}
+
+#description{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-left: 3%;
+    padding-top: 4px;
+    margin-top: 5px;
+    font-size: 16px;
+    width: 40%;
+
+    border: none;
+    height: auto;
+    background: #F8F7FF;
+    border-radius: 6.30112px;
+}
+
+#addPostButton{
+    font-family: Georgia;
+    margin-top: 20px;
+    border: none;
+    width: 20%;
+    height: 40px;
+    left: 559.49px;
+    top: 422.72px;
+
+    color: white;
+    background: #9381FF;
+    border-radius: 6px;
+}
+
+#addPostButton:hover{
+    background: rgb(133, 115, 236);
+}

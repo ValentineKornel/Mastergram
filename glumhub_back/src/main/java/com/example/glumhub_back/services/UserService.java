@@ -1,5 +1,6 @@
 package com.example.glumhub_back.services;
 
+import com.example.glumhub_back.entities.MasterInfo;
 import com.example.glumhub_back.entities.User;
 import com.example.glumhub_back.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class UserService {
 
 
     public User save(User user) {return userRepository.save(user);}
+
 
     public User create(User user){
         if(userRepository.existsUserByUsername(user.getUsername())){

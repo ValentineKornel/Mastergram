@@ -6,11 +6,12 @@ const ProfileNav = (user) => {
     const navigete = useNavigate();
 
     const myProfileNavigate = () => {
-        navigete('/client/myProfile');
+        //user.user.role === 'ROLE_CLIENT' ? navigete('/client/myProfile') : navigete('/master/myProfile');
+        navigete('/myProfile');
     }
 
     const settingsNavigate = () => {
-        navigete('/editProfile');
+        //navigete('/editProfile');
     }
 
     const logOutNavigate = () => {
