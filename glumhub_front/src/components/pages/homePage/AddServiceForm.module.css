@@ -1,0 +1,96 @@
+#newServiceForm{
+    font-family: Georgia;
+    padding-bottom: 1%;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 5px;
+    margin-bottom: 3%;
+    width: 40%;
+    height: auto;
+
+    background: #FFFFFF;
+    border-radius: 12.6022px;
+}
+
+#backButton{
+    background-color: transparent;
+    border: none;
+    position: relative;
+    top: -50px;
+    right: 200px;
+    height: 0px;
+    cursor: pointer;
+}
+
+
+#newServiceForm label{
+    padding-left: 1%;
+    font-size: 14px;
+    font-family: Georgia;
+    margin-top: 10px;
+    width: 85%;
+    color: rgb(35, 35, 35);
+    font-weight: bold;
+}
+
+#newServiceForm input[type="text"],
+#newServiceForm input[type="time"]{
+    padding-left: 3%;
+    font-family: Georgia;
+    margin-top: 5px;
+    font-size: 16px;
+    width: 85%;
+
+    border: none;
+    height: 40px;
+    background: #F8F7FF;
+    border-radius: 6.30112px;
+}
+
+#newServiceForm textarea{
+    padding-left: 3%;
+    padding-top: 4px;
+    font-family: Georgia;
+    padding-top: 5px;
+    font-size: 16px;
+    width: 85%;
+    margin-top: 10px;
+
+    border: none;
+    height: auto;
+    background: #F8F7FF;
+    border-radius: 6.30112px;
+}
+
+
+#addButton{
+    font-family: Georgia;
+    margin-top: 20px;
+    border: none;
+    width: 90%;
+    height: 40px;
+    left: 559.49px;
+    top: 422.72px;
+
+    color: white;
+    background: #9381FF;
+    border-radius: 6px;
+}
+
+#messageLabel{
+    margin-top: 10px;
+}
+
+#radioDiv{
+    width: 85%;
+    margin-top: 10px;
+}
+
+#radioDiv label{
+    font-weight: normal;   
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

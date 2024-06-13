@@ -55,7 +55,6 @@ public class PostsController {
             userService.save(user);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict");
         }
         return ResponseEntity.status(HttpStatus.OK).body("");

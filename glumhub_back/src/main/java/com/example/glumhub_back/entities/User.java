@@ -39,6 +39,9 @@ public class User {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private MasterInfo masterInfo;
 
+    @OneToMany(mappedBy = "client")
+    private List<Booking> bookings;
+
     public Long getId() {
         return id;
     }

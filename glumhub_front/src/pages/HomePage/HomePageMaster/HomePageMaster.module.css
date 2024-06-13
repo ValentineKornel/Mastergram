@@ -13,6 +13,8 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 #navDiv{
@@ -48,8 +50,9 @@ main{
 #bookings{
     top: 10px;
     width: 95%;
-    height: 200px;
+    height: auto;
     background-color: white;
+    padding-bottom: 30px;
 }
 
 #bookingsTitle{
