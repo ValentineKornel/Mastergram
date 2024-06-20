@@ -1,5 +1,7 @@
 package com.example.glumhub_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.sql.Time;
@@ -7,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Booking {
 
     @Id
@@ -81,7 +84,7 @@ public class Booking {
     }
 
     public boolean isBooked() {
-        return client == null;
+        return client != null;
     }
 
     public String getMasterComment() {

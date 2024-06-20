@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -41,5 +43,9 @@ public class UserService {
     public User getCurrentUser(){
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
+    }
+
+    public List<User> searchMasters(Long userId, String searchText){
+        return userRepository.findMasterBySearchText(userId, searchText);
     }
 }

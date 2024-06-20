@@ -7,6 +7,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import EditProfilePage from './pages/EditProfilePage/EditProfilePage';
 import MyProfilePage from './pages/MyProfilePage/MyProfilePage';
 import HomePage from './pages/HomePage/HomePage';
+import MasterPage from './pages/masterPage/MasterPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/home' element={<HomePage></HomePage>}></Route>
             <Route path='/editProfile' element={<EditProfilePage/>}></Route>
             <Route path='/myProfile' element={<MyProfilePage></MyProfilePage>}></Route>
+            <Route path='/master/:id' element={<MasterPage></MasterPage>}></Route>
           </Route>
           <Route path='/error' element={<ErrorPage/>}></Route>
         </Routes>

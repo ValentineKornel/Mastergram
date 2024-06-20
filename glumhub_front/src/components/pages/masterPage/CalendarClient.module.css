@@ -1,8 +1,9 @@
 .calendar {
     width: 90%;
-    margin: auto;
+    margin-top: 10px;
     border: 1px solid black;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: white;
 }
 
 .calendarHeader {

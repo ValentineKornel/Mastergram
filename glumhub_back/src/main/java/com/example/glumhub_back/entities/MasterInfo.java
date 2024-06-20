@@ -1,11 +1,15 @@
 package com.example.glumhub_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class MasterInfo {
 
     @Id
@@ -21,6 +25,9 @@ public class MasterInfo {
 
     @OneToMany(mappedBy = "master", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Booking> bookings;
+
+    @OneToOne(mappedBy = "masterInfo")
+    private User master;
 
     public Long getId() {
         return id;
@@ -70,14 +77,20 @@ public class MasterInfo {
         bookings.add(booking);
     }
 
+    public User getMaster() {
+        return master;
+    }
+
+    public void setMaster(User master) {
+        this.master = master;
+    }
+
     @Override
     public String toString() {
         return "MasterInfo{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", businessAddress='" + businessAddress + '\'' +
-                ", posts=" + posts +
-                ", bookings=" + bookings +
                 '}';
     }
 }

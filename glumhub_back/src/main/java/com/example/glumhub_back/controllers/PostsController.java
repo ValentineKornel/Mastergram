@@ -10,10 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -82,4 +79,23 @@ public class PostsController {
         }
     }
 
+    @GetMapping("/client/getPosts")
+    public ResponseEntity<List<Post>> getPosts(@RequestParam String id){
+
+        try{
+            User master = userService.getById(Long.valueOf(id));
+
+            List<Post> posts = master.getMasterInfo().getPosts();
+            List<Post> response = new ArrayList<>();
+
+            for (Post p: posts) {
+                response.add(new Post(p.getId(), p.getPostImage(), p.getDescription()));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(List.of());
+        }
+    }
 }

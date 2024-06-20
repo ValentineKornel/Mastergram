@@ -26,6 +26,18 @@ const postApi = {
         });
     },
 
+    getPosts(id){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/getPosts?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include',
+        });
+    },
+
 }
 
 export default postApi;

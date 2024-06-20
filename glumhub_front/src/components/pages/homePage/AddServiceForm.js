@@ -19,14 +19,22 @@ const AddServiceForm = ({onBackClick, date}) => {
 
     const [service, setService] = useState({
         service: null,
-        date: date.toISOString().split('T')[0],
+        date: formatDate(date),
         time: '09:00',
         repeat: TimeTables.DONTREPEAT,
         comment: null
     })
 
+    function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');//padStart добавляет ведущий ноль, если месяц < 10
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+    }
+
     const onChangeService = (event) => {
         setService({...service, service:event.target.value});
+        console.log(service.date);
     }
 
     const onChangeTime = (event) => {
@@ -72,7 +80,7 @@ const AddServiceForm = ({onBackClick, date}) => {
             <label>Service</label>
             <input onChange={onChangeService} type="text" placeholder="service"/>
             <label>Time</label>
-            <input onChange={onChangeTime} type="time" value='09:00'/>
+            <input onChange={onChangeTime} type="time" value={service.time}/>
             
             <div id={styles.radioDiv}>
                 <label style={{fontWeight:'bold'}}>Repeat</label><br/>

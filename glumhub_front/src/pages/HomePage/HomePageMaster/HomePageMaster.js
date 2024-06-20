@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './HomePageMaster.module.css'
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../layouts/MainLaout';
-import Calendar from '../../../components/pages/homePage/Calendar';
 import AddServiceForm from '../../../components/pages/homePage/AddServiceForm';
+import CalendarMaster from '../../../components/pages/homePage/CalendarMaster';
 
 
 const HomePageMaster = () => {
@@ -22,6 +22,7 @@ const HomePageMaster = () => {
 
     const onAddServiceClick = () => {
         setBookingsPresentation('newService')
+        console.log(chosenDate);
     }
 
     return(
@@ -78,7 +79,7 @@ const HomePageMaster = () => {
         )}
         {bookingsPresentation === 'calendar' && (
             <div id={styles.bookings}>
-                <Calendar addNewServiceClick = {onAddServiceClick} setChosenDate = {setChosenDate}/>
+                <CalendarMaster addNewServiceClick = {onAddServiceClick} setChosenDate = {setChosenDate}/>
 
             </div>
         )}

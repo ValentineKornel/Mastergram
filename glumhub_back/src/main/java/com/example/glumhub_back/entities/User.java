@@ -1,6 +1,9 @@
 package com.example.glumhub_back.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
@@ -8,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     @Id
@@ -142,7 +146,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", tel='" + tel + '\'' +
                 ", role=" + role +
-                ", profileImage=" + Arrays.toString(profileImage) +
                 ", credential=" + credential +
                 ", masterInfo=" + masterInfo +
                 '}';

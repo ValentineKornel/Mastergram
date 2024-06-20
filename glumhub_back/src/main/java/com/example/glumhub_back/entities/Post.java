@@ -1,10 +1,14 @@
 package com.example.glumhub_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Arrays;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Post {
 
     @Id
@@ -64,7 +68,6 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", postImage=" + Arrays.toString(postImage) +
                 ", description='" + description + '\'' +
                 ", masterInfo=" + masterInfo +
                 '}';

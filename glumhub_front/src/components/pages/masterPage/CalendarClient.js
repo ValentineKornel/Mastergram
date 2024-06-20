@@ -1,6 +1,7 @@
 
-import { useState } from 'react';
-import styles from './Calendar.module.css'
+import { useEffect, useState } from 'react';
+import styles from './CalendarClient.module.css'
+import bookingApi from '../../../services/bookingApi';
 
 const Months = {
     0: 'January',
@@ -18,51 +19,87 @@ const Months = {
 }
 
 
-const Calendar = ({addNewServiceClick, setChosenDate}) => {
+const CalendarClient = ({id}) => {
+    const currentDate = new Date();
     const daysOfWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-    const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June', 
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
     const [date, setDate] = useState(new Date());
     const [clickedEl, setClickedEl] = useState({
         cliked: false,
         date: null,
         weekNumber: null
     });
+    const [bookingsNumber, setBookingsNumber] = useState([]);
+    const [dayBookings, setDayBookings] = useState([]);
+
+
+    const getBookingsNumber = async (id, date) => {
+
+        try{
+            const response = await bookingApi.getMonthBookingsClient(id, date);
+            if (response.ok) {
+                const bookings = await response.json();
+                setBookingsNumber(bookings);
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    const getDayBookings = async (id, date) => {
+
+        try{
+            const response = await bookingApi.getDayBookingsClient(id, date);
+            if (response.ok) {
+                const bookings = await response.json();
+                console.log(bookings);
+                setDayBookings(bookings);
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+
+    useEffect(() => {
+        getBookingsNumber(id, new Date());
+    }, []);
 
     const addMonth = () =>{
         const newDate = new Date(date);
         newDate.setMonth(newDate.getMonth() + 1);
         setDate(newDate);
+        getBookingsNumber(id, newDate);
     }
 
     const subtractMonth = () => {
+
         const newDate = new Date(date);
         newDate.setMonth(newDate.getMonth() - 1);
+        if(newDate.getMonth() < currentDate.getMonth()){
+            return;
+        }
         setDate(newDate);
+        getBookingsNumber(id, newDate);
     }
 
-    const onDayClick = (date, weekNumber) => {
-        if (!clickedEl.cliked || clickedEl.date.getTime() !== date.getTime()) {
+    const onDayClick = (newDate, weekNumber) => {
+        if (!clickedEl.cliked || clickedEl.date.getTime() !== newDate.getTime()) {
             setClickedEl({
                 cliked: true,
-                date: date,
+                date: newDate,
                 weekNumber: weekNumber
             });
+            getDayBookings(id, newDate);
         } else {
             setClickedEl({
                 cliked: false,
                 date: null,
                 weekNumber: null
             });
+            setDayBookings([]);
         }
     }
 
-    const onAddNewServiceClick = () => {
-        setChosenDate(clickedEl.date);
-        addNewServiceClick();
-    }
 
     const renderDaysOfWeek = () => {
         return daysOfWeek.map(day => <th key={day}>{day}</th>);
@@ -71,7 +108,6 @@ const Calendar = ({addNewServiceClick, setChosenDate}) => {
     const getDaysInMonth = (year, month) => {
         return new Date(year, month + 1, 0).getDate();
     };
-
 
     const renderCalendarDays = () => {
         const year = date.getFullYear();
@@ -93,8 +129,10 @@ const Calendar = ({addNewServiceClick, setChosenDate}) => {
                         <td key={`${i}-${j}`} onClick={() => onDayClick(new Date(year, month, currentDay), i)}>
                             {dayCount}
                             {
-                            //Math.random() > 0.5 && <div>5 services</div>
-                            } {/* Для демонстрации */}
+                                bookingsNumber[dayCount] > 0 && (
+                                    <div>{bookingsNumber[dayCount]} services</div>
+                                )
+                            }
                         </td>
                     );
                     dayCount++;
@@ -109,8 +147,13 @@ const Calendar = ({addNewServiceClick, setChosenDate}) => {
                         {clickedEl.date.getDate()} {Months[clickedEl.date.getMonth()]}
                     </div>
                     <div id={styles.serviceContainer}>
-                        
-                        <div id={styles.addButton} onClick={onAddNewServiceClick}><span>add+</span></div>
+                    {dayBookings.length > 0 && (
+                        dayBookings.map(b => (
+                        <div className={styles.bookingEl} key={b.id}>
+                            <span>{b.time}</span>
+                        </div>
+                        ))
+                    )}
                     </div>
 
                 </div>
@@ -121,6 +164,9 @@ const Calendar = ({addNewServiceClick, setChosenDate}) => {
         return weeks;
     };
 
+
+
+
     return (
         <div className={styles.calendar}>
             <div className={styles.calendarHeader}>
@@ -129,7 +175,7 @@ const Calendar = ({addNewServiceClick, setChosenDate}) => {
                         <path d="M11.9596 19.7954L27.0749 9.21463C27.6051 8.84348 28.3337 9.2228 28.3337 9.87002V30.1303C28.3337 30.7775 27.6051 31.1568 27.0749 30.7857L11.9596 20.205C11.8174 20.1054 11.8174 19.8949 11.9596 19.7954Z" fill="#33363F"/>
                     </svg>
                 </button>
-                <h2>{monthNames[date.getMonth()]} {date.getFullYear()}</h2>
+                <h2>{Months[date.getMonth()]} {date.getFullYear()}</h2>
                 <button onClick={addMonth}>
                     <svg width="30" height="30" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M31.2198 19.7766L9.49143 8.91238C8.95951 8.64642 8.33366 9.03322 8.33366 9.62792V30.3724C8.33366 30.9671 8.95951 31.3539 9.49143 31.0879L31.2198 20.2238C31.404 20.1316 31.404 19.8687 31.2198 19.7766Z" fill="#33363F"/>
@@ -150,4 +196,4 @@ const Calendar = ({addNewServiceClick, setChosenDate}) => {
     );
 };
 
-export default Calendar;
+export default CalendarClient;
