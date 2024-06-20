@@ -4,10 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import postApi from '../../services/postApi';
 import CalendarClient from '../../components/pages/masterPage/CalendarClient';
 import userApi from '../../services/userApi';
+import Booking from '../../components/pages/masterPage/Booking';
 
 const NavButtons = {
     SERVICE: 'service',
     POSTS: 'posts',
+    BOOKING: 'booking'
 };
 
 const MasterPage = () => {
@@ -15,9 +17,11 @@ const MasterPage = () => {
     const {id} = useParams();
     
     const [master, setMaster] = useState({});
-    const navigate = useNavigate()
-    const [selected, setSelected] = useState(NavButtons.SERVICE);
+    const [selectedNav, setSelectedNav] = useState(NavButtons.SERVICE);
     const [posts, setPosts] = useState([])
+    const [bookingId, setBookingId] = useState();
+    const [followButtonText, setFollwButtonText] = useState();
+
 
     const getMasterInfo = async() => {
         try{
@@ -25,6 +29,7 @@ const MasterPage = () => {
             if (response.ok) {
                 const result = await response.json();
                 setMaster(result);
+                result.following === true ? setFollwButtonText('unfollow') : setFollwButtonText('follow');
             }
         }catch(error){
             console.log(error);
@@ -43,19 +48,42 @@ const MasterPage = () => {
         }
     }
 
-    useEffect(() => {getMasterInfo()}, [])
-
-    const editProfileRedirect = () => {
-        navigate('/editProfile');
+    const followMaster = async() => {
+        try{
+            const response = await userApi.followMaster(id);
+            if (response.ok) {
+                const result = await response.text();
+                console.log(result);
+                setFollwButtonText('unfollow')
+            }
+        }catch(error){
+            console.log(error);
+        }
     }
 
+    const unFollowMaster = async() => {
+        try{
+            const response = await userApi.unFollowMaster(id);
+            if (response.ok) {
+                const result = await response.text();
+                console.log(result);
+                setFollwButtonText('follow')
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {getMasterInfo()}, [])
+
+
     const onServiceClick = () => {
-        setSelected(NavButtons.SERVICE);
+        setSelectedNav(NavButtons.SERVICE);
     }
 
     const onPostsClick = () => {
         getPosts();
-        setSelected(NavButtons.POSTS);
+        setSelectedNav(NavButtons.POSTS);
     }
 
 
@@ -74,7 +102,11 @@ const MasterPage = () => {
                 <div id={styles.infoDiv}>
                     <div id={styles.nameDiv}>
                         <span>{master.firstName} {master.secondName}</span>
-                        <button onClick={editProfileRedirect} id={styles.editPfofileButton}>follow</button>
+                        {followButtonText === 'unfollow' ? (
+                            <button onClick={unFollowMaster} id={styles.unFollowButton}>{followButtonText}</button>
+                        ):
+                        <button onClick={followMaster} id={styles.followButton}>{followButtonText}</button>
+                        }
                     </div>
                     <div className={styles.addressDiv}>
                         <span>{master.city} {master.businessAddress}</span>
@@ -87,7 +119,7 @@ const MasterPage = () => {
 
             <div id={styles.navDiv}>
 
-                    <button style={selected === NavButtons.SERVICE ? {borderTop:'2px solid #B8B8FF'} : {}} 
+                    <button style={(selectedNav === NavButtons.SERVICE || selectedNav === NavButtons.BOOKING) ? {borderTop:'2px solid #B8B8FF'} : {}} 
                         onClick={onServiceClick}
                         id={styles.navButton}>
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +134,7 @@ const MasterPage = () => {
                         </svg>
                         <span>service</span>
                     </button>
-                    <button style={selected === NavButtons.POSTS ? {borderTop:'2px solid #B8B8FF'} : {}} 
+                    <button style={selectedNav === NavButtons.POSTS ? {borderTop:'2px solid #B8B8FF'} : {}} 
                         onClick={onPostsClick}
                         id={styles.navButton}>
                         <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -113,13 +145,13 @@ const MasterPage = () => {
                     
             </div>
 
-            {selected === NavButtons.SERVICE && (
-                <CalendarClient id={id}></CalendarClient>
+            {selectedNav === NavButtons.SERVICE && (
+                <CalendarClient id={id} setChoosenBookingId={setBookingId} setSelectedNav={setSelectedNav}></CalendarClient>
             )
 
             }
 
-            {selected === NavButtons.POSTS && (
+            {selectedNav === NavButtons.POSTS && (
                 <div id={styles.postsContainer}>
                     
                     {posts.map(post => (
@@ -129,6 +161,10 @@ const MasterPage = () => {
                     ))
                     }
                 </div>
+            )}
+
+            {selectedNav === NavButtons.BOOKING && (
+                <Booking id={bookingId} setSelectedNav={setSelectedNav}></Booking>
             )}
             
         </div>

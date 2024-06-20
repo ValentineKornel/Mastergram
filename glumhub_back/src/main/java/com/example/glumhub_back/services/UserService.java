@@ -48,4 +48,10 @@ public class UserService {
     public List<User> searchMasters(Long userId, String searchText){
         return userRepository.findMasterBySearchText(userId, searchText);
     }
+
+    public boolean isFollowing(Long clientId, Long masterId){
+        User client = userRepository.getById(clientId);
+        User master = userRepository.getById(masterId);
+        return client.getMasters().contains(master);
+    }
 }

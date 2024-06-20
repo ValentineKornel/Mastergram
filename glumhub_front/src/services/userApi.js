@@ -50,10 +50,33 @@ const userApi = {
     },
 
     getMasterInfo(id){
-        console.log(id);
         const token = localStorage.getItem('token');
         return fetch(`http://localhost:8080/client/masterInfo?id=${id}`, {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include'
+        });
+    },
+
+    followMaster(id){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/followMaster?masterId=${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include'
+        });
+    },
+
+    unFollowMaster(id){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/unFollowMaster?masterId=${id}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

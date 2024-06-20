@@ -1,0 +1,81 @@
+
+
+#bookingContainer{
+    width: 90%;
+    height: auto;
+    margin-top: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#bookingContainer h3{
+    margin-top: 5px;
+}
+
+#infoDiv{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#labelsContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#labelsContainer span{
+    display: block;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#valuesContaner{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+#valuesContaner span{
+    display: block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+
+#cancelButton{
+    margin-top: 20px;
+    width: 120px;
+    height: 35px;
+    cursor: pointer;
+
+    background: #FFFFFF;
+    border: 1px solid #ECECEC;
+    border-radius: 6px;
+}
+
+#cancelButton:hover{
+    background-color: rgb(240, 240, 240);
+}
+
+#confirmButton{
+    margin-top: 20px;
+    width: 120px;
+    height: 35px;
+    cursor: pointer;
+
+    background: #9381FF;
+    border-radius: 6px;
+    border: none;
+}
+
+#confirmButton:hover{
+    background-color: #afaffc;
+}

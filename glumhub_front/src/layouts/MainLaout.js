@@ -15,6 +15,7 @@ const MainLayout = () => {
     const [user, setUser] = useState({
         id: null,
         username: null,
+        bookings: [],
         base64Image: null,
         email: null,
         firstName: null,
@@ -39,6 +40,7 @@ const MainLayout = () => {
                     const profileImageBase64 = result.profileImage;
                     setUser({...user,
                         id: result.id,
+                        bookings: result.bookings,
                         username: result.username,
                         base64Image: `data:image/jpeg;base64,${profileImageBase64}`,
                         email: result.email,

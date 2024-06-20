@@ -44,7 +44,9 @@ public class SearchController {
                         m.getProfileImage(),
                         m.getCity(),
                         m.getMasterInfo().getBusinessAddress(),
-                        m.getMasterInfo().getDescription()));
+                        m.getMasterInfo().getDescription(),
+                        userService.isFollowing(user.getId(), m.getId())
+                        ));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(response);

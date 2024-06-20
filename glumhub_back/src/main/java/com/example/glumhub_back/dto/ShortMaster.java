@@ -16,7 +16,9 @@ public class ShortMaster {
 
     private String description;
 
-    public ShortMaster(Long id, String firstName, String secondName, byte[] profileImage, String city, String businessAddress, String description) {
+    private boolean following;
+
+    public ShortMaster(Long id, String firstName, String secondName, byte[] profileImage, String city, String businessAddress, String description, boolean following) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -24,6 +26,7 @@ public class ShortMaster {
         this.city = city;
         this.businessAddress = businessAddress;
         this.description = description;
+        this.following = following;
     }
 
     public Long getId() {
@@ -80,5 +83,13 @@ public class ShortMaster {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isFollowing() {
+        return following;
+    }
+
+    public void setFollowing(boolean following) {
+        this.following = following;
     }
 }

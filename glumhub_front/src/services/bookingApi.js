@@ -65,7 +65,56 @@ const bookingApi = {
             },
             credentials: 'include',
         });
-    }
+    },
+
+    getBookingInfo(bookingId){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/booking?bookingId=${bookingId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include',
+        });
+    },
+
+    bookBooking(bookingId){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/booking?bookingId=${bookingId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include',
+        });
+    },
+
+    getMyBookingsClient(){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/myBookings`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include',
+        });
+    },
+
+    getMyBookingsMaster(){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/master/myBookings`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include',
+        });
+    },
+
 }
 
 function formatDate(date) {

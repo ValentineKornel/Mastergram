@@ -19,7 +19,7 @@ const Months = {
 }
 
 
-const CalendarClient = ({id}) => {
+const CalendarClient = ({id, setChoosenBookingId, setSelectedNav}) => {
     const currentDate = new Date();
     const daysOfWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
     const [date, setDate] = useState(new Date());
@@ -58,7 +58,6 @@ const CalendarClient = ({id}) => {
             console.log(error);
         }
     }
-
 
     useEffect(() => {
         getBookingsNumber(id, new Date());
@@ -100,6 +99,11 @@ const CalendarClient = ({id}) => {
         }
     }
 
+    const onBookingclick = (id) => {
+        console.log(id);
+        setChoosenBookingId(id);
+        setSelectedNav('booking');
+    }
 
     const renderDaysOfWeek = () => {
         return daysOfWeek.map(day => <th key={day}>{day}</th>);
@@ -126,7 +130,8 @@ const CalendarClient = ({id}) => {
                 } else {
                     const currentDay = dayCount;
                     days.push(
-                        <td key={`${i}-${j}`} onClick={() => onDayClick(new Date(year, month, currentDay), i)}>
+                        <td key={`${i}-${j}`} 
+                        onClick={bookingsNumber[dayCount] > 0 ? () =>  onDayClick(new Date(year, month, currentDay), i) : null}>
                             {dayCount}
                             {
                                 bookingsNumber[dayCount] > 0 && (
@@ -149,7 +154,7 @@ const CalendarClient = ({id}) => {
                     <div id={styles.serviceContainer}>
                     {dayBookings.length > 0 && (
                         dayBookings.map(b => (
-                        <div className={styles.bookingEl} key={b.id}>
+                        <div onClick={() => onBookingclick(b.id)} className={styles.bookingEl} key={b.id}>
                             <span>{b.time}</span>
                         </div>
                         ))

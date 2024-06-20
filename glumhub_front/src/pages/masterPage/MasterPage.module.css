@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
     padding-bottom: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #profileInfo{
@@ -49,7 +50,7 @@
     margin-right: 3%;
 }
 
-#editPfofileButton{
+#followButton{
     padding: 7px 16px;
     border: none;
 
@@ -58,8 +59,23 @@
     color: white;
 }
 
-#editPfofileButton:hover{
+#followButton:hover{
     background: #afaffc;
+}
+
+#unFollowButton{
+    padding: 7px 16px;
+    border: none;
+
+    background: #B8B8FF;
+    border-radius: 6px;
+    color: rgb(102, 102, 102);
+    background: #FFFFFF;
+    border: 1px solid #ECECEC;
+}
+
+#unFollowButton:hover{
+    background-color: rgb(240, 240, 240);
 }
 
 #navDiv{

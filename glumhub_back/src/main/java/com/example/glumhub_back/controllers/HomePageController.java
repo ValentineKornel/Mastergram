@@ -29,6 +29,7 @@ public class HomePageController {
         if(response.getRole() == ROLES.ROLE_MASTER){
             response.getMasterInfo().setPosts(null);
         }
+
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

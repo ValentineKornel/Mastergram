@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +46,15 @@ public class User {
 
     @OneToMany(mappedBy = "client")
     private List<Booking> bookings;
+
+    @ManyToMany
+    @JoinTable(name = "masters_followers",
+                joinColumns = @JoinColumn(name = "client_id"),
+    inverseJoinColumns = @JoinColumn(name = "master_id"))
+    private List<User> masters = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "masters")
+    private List<User> followers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -134,6 +144,45 @@ public class User {
         this.masterInfo = masterInfo;
     }
 
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<User> getMasters() {
+        return masters;
+    }
+
+    public void setMasters(List<User> masters) {
+        this.masters = masters;
+    }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
+    public void addMaster(User master){
+        masters.add(master);
+    }
+
+    public void removeMaster(User master){
+        masters.remove(master);
+    }
+
+    public void addFollower(User follower){
+        followers.add(follower);
+    }
+
+    public void removeFollower(User follower){
+        followers.remove(follower);
+    }
 
     @Override
     public String toString() {
