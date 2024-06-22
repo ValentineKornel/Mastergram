@@ -1,0 +1,9 @@
+spring.application.name=
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url = jdbc:mysql://localhost/example
+spring.datasource.username = username
+spring.datasource.password = password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.show-sql: true
+token.signing.key: 
+spring.jackson.serialization.fail-on-empty-beans=false
