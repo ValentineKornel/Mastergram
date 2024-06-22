@@ -36,7 +36,6 @@ public class PostsController {
             String base64Data = request.getBase64Image().replaceFirst("^data:image/[a-zA-Z]+;base64,", "");
             byte[] imageData = Base64.getDecoder().decode(base64Data);
 
-            //TODO check if was created userInfo
 
             var jwt = httpServletRequest.getHeader("Authorization").substring(BEARER_PREFIX.length());
             Integer userId = jwtService.extractUserId(jwt);

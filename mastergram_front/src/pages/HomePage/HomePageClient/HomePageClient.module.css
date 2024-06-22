@@ -4,6 +4,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #title{
@@ -13,6 +14,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 15px;
 }

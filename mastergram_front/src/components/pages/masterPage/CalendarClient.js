@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import styles from './Calendar.module.css'
+import styles from './CalendarClient.module.css'
 import bookingApi from '../../../services/bookingApi';
 
 const Months = {
@@ -19,7 +19,7 @@ const Months = {
 }
 
 
-const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate}) => {
+const CalendarClient = ({id, setChoosenBookingId, setSelectedNav}) => {
     const currentDate = new Date();
     const daysOfWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
     const [date, setDate] = useState(new Date());
@@ -32,28 +32,47 @@ const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate
     const [dayBookings, setDayBookings] = useState([]);
 
 
-    const getBookingsNumber = async (date) => {
-        const resp = await bookingApi.getMonthBookings(date);
-        const bookings = await resp.json();
-        setBookingsNumber(bookings);
+    const getBookingsNumber = async (id, date) => {
+
+        try{
+            const response = await bookingApi.getMonthBookingsClient(id, date);
+            if (response.ok) {
+                const bookings = await response.json();
+                setBookingsNumber(bookings);
+            }
+        }catch(error){
+            console.log(error);
+        }
     }
 
-    const getDayBookings = async (date) => {
-        const resp = await bookingApi.getDayBookings(date);
-        const bookings = await resp.json();
-        setDayBookings(bookings);
-    }
+    const getDayBookings = async (id, date) => {
 
+        try{
+            const response = await bookingApi.getDayBookingsClient(id, date);
+            if (response.ok) {
+                const bookings = await response.json();
+                console.log(bookings);
+                setDayBookings(bookings);
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
-        getBookingsNumber(new Date());
+        getBookingsNumber(id, new Date());
     }, []);
 
     const addMonth = () =>{
         const newDate = new Date(date);
         newDate.setMonth(newDate.getMonth() + 1);
         setDate(newDate);
-        getBookingsNumber(newDate);
+        getBookingsNumber(id, newDate);
+        setClickedEl({
+            cliked: false,
+            date: null,
+            weekNumber: null
+        })
     }
 
     const subtractMonth = () => {
@@ -64,18 +83,22 @@ const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate
             return;
         }
         setDate(newDate);
-        getBookingsNumber(newDate);
+        getBookingsNumber(id, newDate);
+        setClickedEl({
+            cliked: false,
+            date: null,
+            weekNumber: null
+        })
     }
 
     const onDayClick = (newDate, weekNumber) => {
         if (!clickedEl.cliked || clickedEl.date.getTime() !== newDate.getTime()) {
-            setChosenDate(newDate);
             setClickedEl({
                 cliked: true,
                 date: newDate,
                 weekNumber: weekNumber
             });
-            getDayBookings(newDate);
+            getDayBookings(id, newDate);
         } else {
             setClickedEl({
                 cliked: false,
@@ -86,6 +109,11 @@ const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate
         }
     }
 
+    const onBookingclick = (id) => {
+        console.log(id);
+        setChoosenBookingId(id);
+        setSelectedNav('booking');
+    }
 
     const renderDaysOfWeek = () => {
         return daysOfWeek.map(day => <th key={day}>{day}</th>);
@@ -112,7 +140,8 @@ const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate
                 } else {
                     const currentDay = dayCount;
                     days.push(
-                        <td key={`${i}-${j}`} onClick={() => onDayClick(new Date(year, month, currentDay), i)}>
+                        <td key={`${i}-${j}`} 
+                        onClick={bookingsNumber[dayCount] > 0 ? () =>  onDayClick(new Date(year, month, currentDay), i) : null}>
                             {dayCount}
                             {
                                 bookingsNumber[dayCount] > 0 && (
@@ -135,12 +164,11 @@ const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate
                     <div id={styles.serviceContainer}>
                     {dayBookings.length > 0 && (
                         dayBookings.map(b => (
-                        <div className={styles.bookingEl} key={b.id}>
-                            <span>{b.time}</span> {b.booked && (' (booked)')}
+                        <div onClick={() => onBookingclick(b.id)} className={styles.bookingEl} key={b.id}>
+                            <span>{b.time}</span><span>{b.service}</span>
                         </div>
                         ))
                     )}
-                        <div id={styles.addButton} onClick={onAddNewServiceClick}><span>add+</span></div>
                     </div>
 
                 </div>
@@ -183,4 +211,4 @@ const CalendarMaster = ({addNewServiceClick: onAddNewServiceClick, setChosenDate
     );
 };
 
-export default CalendarMaster;
+export default CalendarClient;

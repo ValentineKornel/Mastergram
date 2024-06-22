@@ -179,7 +179,7 @@ public class BookingController {
             List<ShortBooking> response = new ArrayList<>();
 
             for (Booking b: bookings) {
-                response.add(new ShortBooking(b.getId(), b.getTime().format(DateTimeFormatter.ofPattern("HH:mm")), b.isBooked()));
+                response.add(new ShortBooking(b.getId(), b.getTime().format(DateTimeFormatter.ofPattern("HH:mm")),b.getService(), b.isBooked()));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -201,7 +201,7 @@ public class BookingController {
             List<ShortBooking> response = new ArrayList<>();
 
             for (Booking b: bookings) {
-                response.add(new ShortBooking(b.getId(), b.getTime().format(DateTimeFormatter.ofPattern("HH:mm")), b.isBooked()));
+                response.add(new ShortBooking(b.getId(), b.getTime().format(DateTimeFormatter.ofPattern("HH:mm")),b.getService(), b.isBooked()));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(response);

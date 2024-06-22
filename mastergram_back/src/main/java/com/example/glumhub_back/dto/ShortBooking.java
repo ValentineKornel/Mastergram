@@ -9,11 +9,20 @@ public class ShortBooking {
 
     private String time;
 
+    private String service;
+
     private boolean booked;
 
     public ShortBooking(Long id, String time, boolean booked) {
         this.id = id;
         this.time = time;
+        this.booked = booked;
+    }
+
+    public ShortBooking(Long id, String time,String service, boolean booked) {
+        this.id = id;
+        this.time = time;
+        this.service = service;
         this.booked = booked;
     }
 
@@ -31,6 +40,14 @@ public class ShortBooking {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     public boolean isBooked() {

@@ -41,7 +41,7 @@ const LoginForm = () => {
 
     return(
         <form id={styles.loginForm}>
-            <label id={styles.titleLabel}>GlumHub</label>
+            <label id={styles.titleLabel}>Mastergram</label>
             {
                 message !== null ? <label id={styles.messageLabel}>{message}</label> : null
             }

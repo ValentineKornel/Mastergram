@@ -74,7 +74,7 @@ const Header = (user) => {
         <header>
         <Link id={styles.iconLink} to='/home'>
             <div id={styles.iconDiv}>
-                <p id={styles.icon}>GlumHub</p>
+                <p id={styles.icon}>Mastegram</p>
             </div>
         </Link>
         <div id={styles.searchDiv}>
