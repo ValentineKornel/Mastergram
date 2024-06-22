@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import MainLayout from './layouts/MainLaout';
@@ -8,6 +8,7 @@ import EditProfilePage from './pages/EditProfilePage/EditProfilePage';
 import MyProfilePage from './pages/MyProfilePage/MyProfilePage';
 import HomePage from './pages/HomePage/HomePage';
 import MasterPage from './pages/masterPage/MasterPage';
+import MyMastersPage from './pages/myMastersPage/MyMastersPage';
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
             <Route path='/editProfile' element={<EditProfilePage/>}></Route>
             <Route path='/myProfile' element={<MyProfilePage></MyProfilePage>}></Route>
             <Route path='/master/:id' element={<MasterPage></MasterPage>}></Route>
+            <Route path='/myMasters' element={<MyMastersPage></MyMastersPage>}></Route>
           </Route>
+          
           <Route path='/error' element={<ErrorPage/>}></Route>
         </Routes>
       </BrowserRouter>

@@ -83,7 +83,7 @@ const AddServiceForm = ({onBackClick, date}) => {
             <input onChange={onChangeTime} type="time" value={service.time}/>
             
             <div id={styles.radioDiv}>
-                <label style={{fontWeight:'bold'}}>Repeat</label><br/>
+                <label style={{fontWeight:'bold'}}>Repeat during a month</label><br/>
 
                 <input style={{marginTop:'10px'}} type="radio" id="dontRepeat" name="repeat" value="dontRepeat" 
                 checked={service.repeat === TimeTables.DONTREPEAT} onChange={handleOptionChange}/>

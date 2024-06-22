@@ -26,7 +26,7 @@ public class HomePageController {
 
         User response = userService.getCurrentUser();
         response.setCredential(null);
-        if(response.getRole() == ROLES.ROLE_MASTER){
+        if(response.getRole() == ROLES.ROLE_MASTER && response.getMasterInfo() != null){
             response.getMasterInfo().setPosts(null);
         }
 

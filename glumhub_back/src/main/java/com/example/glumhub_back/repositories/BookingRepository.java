@@ -33,10 +33,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("SELECT b FROM Booking b WHERE b.master=:master AND b.booked = false AND b.date = :date")
     List<Booking> findFreeBookingsByDate(@Param("master") MasterInfo master, @Param("date") LocalDate date);
 
-    @Query("SELECT b FROM Booking b WHERE b.client=:client AND b.date > :date AND b.time > :time")
-    List<Booking> findBookingsByClient(@Param("client") User client, @Param("date") LocalDate date, @Param("time") LocalTime time);
+    @Query("SELECT b FROM Booking b WHERE b.client=:client AND b.date >= :date")
+    List<Booking> findBookingsByClient(@Param("client") User client, @Param("date") LocalDate date);
 
-    @Query("SELECT b FROM Booking b WHERE b.master=:master AND b.booked = true AND b.date > :date AND b.time > :time")
-    List<Booking> findBookedBookingsByMaster(@Param("master") MasterInfo master, @Param("date") LocalDate date, @Param("time") LocalTime time);
+    @Query("SELECT b FROM Booking b WHERE b.master=:master AND b.booked = true AND b.date >= :date")
+    List<Booking> findBookedBookingsByMaster(@Param("master") MasterInfo master, @Param("date") LocalDate date);
 
 }

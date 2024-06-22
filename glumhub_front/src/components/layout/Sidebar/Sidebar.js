@@ -10,6 +10,9 @@ const Sidebar = () => {
     const onClickHome = () => {
         navigate('/home');
     }
+    const onMyMastersClick = () => {
+        navigate('/myMasters');
+    }
 
     return(
         <nav>
@@ -20,7 +23,7 @@ const Sidebar = () => {
             </svg>
             <p>Home</p>        
         </div>
-        <div className={styles.navButton}>
+        <div onClick={onMyMastersClick} className={styles.navButton}>
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="20" cy="13.3333" r="4.5" stroke="#222222" stroke-linecap="round"/>
                 <path d="M22.6573 10.6666C23.0199 10.0385 23.5605 9.53213 24.211 9.21139C24.8614 8.89064 25.5923 8.76996 26.3113 8.86462C27.0303 8.95928 27.7051 9.26502 28.2503 9.74317C28.7955 10.2213 29.1867 10.8504 29.3744 11.5509C29.5621 12.2514 29.5379 12.9918 29.3048 13.6785C29.0717 14.3652 28.6401 14.9674 28.0648 15.4089C27.4895 15.8504 26.7961 16.1113 26.0725 16.1587C25.3488 16.2062 24.6274 16.0379 23.9993 15.6753" stroke="#222222"/>

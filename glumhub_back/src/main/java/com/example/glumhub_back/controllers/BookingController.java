@@ -49,17 +49,57 @@ public class BookingController {
             var jwt = httpServletRequest.getHeader("Authorization").substring(BEARER_PREFIX.length());
             Integer userId = jwtService.extractUserId(jwt);
             User master = userService.getById(Long.valueOf(userId));
+            System.out.println(request.getRepeat());
 
-            Booking booking = new Booking();
-            booking.setService(request.getService());
-            booking.setDate(LocalDate.parse(request.getDate()));
-            booking.setTime(LocalTime.parse(request.getTime()));
-            booking.setMasterComment(request.getComment());
-            booking.setMaster(master.getMasterInfo());
-            master.getMasterInfo().addBooking(booking);
+            switch (request.getRepeat()){
+                case "dontRepeat": {
+                    Booking booking = new Booking();
+                    booking.setService(request.getService());
+                    booking.setDate(LocalDate.parse(request.getDate()));
+                    booking.setTime(LocalTime.parse(request.getTime()));
+                    booking.setMasterComment(request.getComment());
+                    booking.setMaster(master.getMasterInfo());
+                    master.getMasterInfo().addBooking(booking);
 
-            userService.save(master);
+                    userService.save(master);
+                    break;
+                }
+                case "daily": {
+                    LocalDate givenDate = LocalDate.parse(request.getDate());
+                    LocalDate lastDayOfMonth = givenDate.with(TemporalAdjusters.lastDayOfMonth());
+                    while (givenDate.isBefore(lastDayOfMonth) || givenDate.isEqual(lastDayOfMonth)){
+                        Booking booking = new Booking();
+                        booking.setService(request.getService());
+                        booking.setDate(givenDate);
+                        booking.setTime(LocalTime.parse(request.getTime()));
+                        booking.setMasterComment(request.getComment());
+                        booking.setMaster(master.getMasterInfo());
+                        master.getMasterInfo().addBooking(booking);
 
+                        givenDate = givenDate.plusDays(1);
+                    }
+
+                    userService.save(master);
+                    break;
+                }
+                case "weekly": {
+                    LocalDate givenDate = LocalDate.parse(request.getDate());
+                    LocalDate lastDayOfMonth = givenDate.with(TemporalAdjusters.lastDayOfMonth());
+                    while (givenDate.isBefore(lastDayOfMonth) || givenDate.isEqual(lastDayOfMonth)){
+                        Booking booking = new Booking();
+                        booking.setService(request.getService());
+                        booking.setDate(givenDate);
+                        booking.setTime(LocalTime.parse(request.getTime()));
+                        booking.setMasterComment(request.getComment());
+                        booking.setMaster(master.getMasterInfo());
+                        master.getMasterInfo().addBooking(booking);
+
+                        givenDate = givenDate.plusWeeks(1);
+                    }
+                    userService.save(master);
+                    break;
+                }
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -84,7 +124,7 @@ public class BookingController {
             ArrayList<Integer> response = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                                                        0));
+                                                                        0, 0));
             for (Booking b: bookings) {
                 response.set(b.getDate().getDayOfMonth(), response.get(b.getDate().getDayOfMonth())+1);
             }

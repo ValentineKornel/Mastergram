@@ -87,7 +87,7 @@ const HomePageMaster = () => {
                         <span style={{left: '17%'}}>{b.time}</span>
                         <span style={{left: '30%'}}>{b.service}</span>
                         <span style={{left: '48%'}}>{b.location}</span>
-                        <img style={{borderRadius: '40px', cursor:'pointer'}} src={`data:image/jpeg;base64,${b.clientProfileImage}`} height="40" width="40"/>
+                        <img style={{borderRadius: '40px'}} src={`data:image/jpeg;base64,${b.clientProfileImage}`} height="40" width="40"/>
                         <span style={{left: '77%'}}>{b.clientName}</span>
                         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="15" cy="15" r="1.25" stroke="#33363F" stroke-width="2" stroke-linecap="round"/>

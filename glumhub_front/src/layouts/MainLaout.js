@@ -52,7 +52,10 @@ const MainLayout = () => {
                         masterInfo: result.role === 'ROLE_MASTER' && result.masterInfo ? {
                             description: result.masterInfo.description,
                             businessAddress: result.masterInfo.businessAddress
-                        } : null
+                        } : {
+                            description: null,
+                            businessAddress: null
+                        }
                     });
                     if(result.role === 'ROLE_MASTER'){
                         setIsMaster(true);

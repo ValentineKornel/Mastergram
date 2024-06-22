@@ -14,7 +14,7 @@ const postApi = {
         });
     },
 
-    getPosts(){
+    getMyPosts(){
         const token = localStorage.getItem('token');
         return fetch('http://localhost:8080/master/getPosts', {
             method: 'GET',

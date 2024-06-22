@@ -84,6 +84,18 @@ const userApi = {
             credentials: 'include'
         });
     },
+
+    getMyMasters(){
+        const token = localStorage.getItem('token');
+        return fetch(`http://localhost:8080/client/myMasters`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            credentials: 'include'
+        });
+    },
     
 }
 

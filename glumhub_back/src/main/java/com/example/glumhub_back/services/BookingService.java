@@ -46,13 +46,12 @@ public class BookingService {
 
     public List<Booking> findBookingsByClient(User client){
         LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        return  bookingRepository.findBookingsByClient(client, date, time);
+        return  bookingRepository.findBookingsByClient(client, date);
     }
 
     public List<Booking> findBookedBookingsByMaster(MasterInfo master){
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        return  bookingRepository.findBookedBookingsByMaster(master, date, time);
+        return  bookingRepository.findBookedBookingsByMaster(master, date);
     }
 }

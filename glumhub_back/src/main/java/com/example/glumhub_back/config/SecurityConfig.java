@@ -72,25 +72,12 @@ public class SecurityConfig {
                     return corsConfiguration;
                 }));
 
-
-
-//        http.sessionManagement(session -> session
-//                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-//
-//        http.csrf(c -> c.disable());
-//        http.authorizeHttpRequests(auth -> {
-//            auth.requestMatchers("/login").permitAll();
-//            auth.requestMatchers("/register").permitAll();
-//            auth.requestMatchers("/homeClient").authenticated();
-//        });
-        //http.addFilterBefore(new CustomAuthenticationFilter(authenticationProviderService), UsernamePasswordAuthenticationFilter.class);
-
-
         http.authorizeHttpRequests(request -> request
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/client/**").hasAnyRole("CLIENT", "MASTER")
                         .requestMatchers("/master/**").hasRole("MASTER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())

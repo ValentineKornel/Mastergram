@@ -16,6 +16,7 @@ const HomePageClient = () => {
             const response = await bookingApi.getMyBookingsClient();
             if (response.ok) {
                 const result = await response.json();
+                console.log(result);
                 setBookings(result);
             }
         }catch(error){

@@ -21,7 +21,7 @@ const MyProfilePageMaster = () => {
 
     const getPosts = async() => {
         try{
-            const response = await postApi.getPosts();
+            const response = await postApi.getMyPosts();
             if (response.ok) {
                 const result = await response.json();
                 setPosts(result);

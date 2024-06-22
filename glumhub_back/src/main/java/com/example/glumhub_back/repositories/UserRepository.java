@@ -25,4 +25,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT m FROM User m WHERE m.masterInfo IS NOT NULL AND m.id != :userId AND (m.FirstName LIKE %:search% OR m.SecondName LIKE %:search% OR m.masterInfo.description LIKE %:search%)")
     List<User> findMasterBySearchText(@Param("userId") Long userId, @Param("search") String search);
+
 }
